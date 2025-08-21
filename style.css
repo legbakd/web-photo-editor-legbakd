@@ -1,0 +1,233 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #282c34; /* 어두운 배경색 */
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    color: #e0e0e0; /* 기본 글자색 밝게 */
+}
+
+.main-layout {
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* 왼쪽 70%, 오른쪽 30% 비율 */
+    gap: 20px;
+    width: 100%;
+    max-width: 1400px; /* 전체 너비 증가 */
+    background-color: #33373e; /* 컨테이너 배경색 */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.image-display-area {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #21252b; /* 이미지 영역 배경색 더 어둡게 */
+    min-height: 600px; /* 최소 높이 설정 */
+    padding: 20px; /* 여백 추가 */
+    box-sizing: border-box;
+}
+
+#imageCanvas {
+    max-width: 800px;
+    max-height: 600px;
+    width: auto;
+    height: auto;
+    border: 1px solid #ccc;
+    display: block;
+    background-color: #000; /* 캔버스 자체 배경색 검정 */
+    border-radius: 8px; /* 캔버스 모서리 둥글게 */
+}
+
+#noImageText {
+    position: absolute;
+    color: #888;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.controls-panel {
+    background-color: rgba(40, 44, 52, 0.8); /* 오른쪽 패널 배경색 */
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    text-align: center;
+    color: #e0e0e0;
+    margin-top: 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #444;
+}
+
+h3 {
+    margin-top: 0;
+    color: #90caf9; /* 제목 색상 강조 */
+    border-bottom: 1px dashed #555;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+
+.file-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.button {
+    background-color: #61afef; /* 버튼 기본색 */
+    color: white;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    text-align: center;
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+}
+
+.button.primary-button {
+    background-color: #a55eea; /* 주요 버튼 색상 강조 */
+}
+
+.button:hover:not(:disabled) {
+    background-color: #7ab3f3;
+    transform: translateY(-1px);
+}
+
+.button.primary-button:hover:not(:disabled) {
+    background-color: #c482ed;
+}
+
+.button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.adjustment-group {
+    background-color: #3b4049; /* 각 그룹 배경색 */
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #444;
+}
+
+.slider-control {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.slider-control label {
+    flex-shrink: 0;
+    width: 60px;
+    color: #bbb;
+    font-size: 0.95em;
+}
+
+.slider-control input[type="range"] {
+    flex-grow: 1;
+    margin: 0 10px;
+    -webkit-appearance: none;
+    height: 6px;
+    background: #555;
+    border-radius: 3px;
+    outline: none;
+}
+
+.slider-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #a55eea; /* 슬라이더 썸 색상 */
+    border-radius: 50%;
+    cursor: grab;
+    transition: background-color 0.2s ease;
+}
+
+.slider-control input[type="range"]::-webkit-slider-thumb:active {
+    cursor: grabbing;
+}
+
+.slider-control input[type="range"]::-webkit-slider-thumb:hover {
+    background: #c482ed;
+}
+
+.slider-control span {
+    width: 50px;
+    text-align: right;
+    color: #e0e0e0;
+    font-weight: bold;
+}
+
+.crop-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.crop-buttons .button {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 0.9em;
+}
+
+.crop-info {
+    font-size: 0.9em;
+    color: #aaa;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* 크롭 시 마우스 커서 변경 */
+.cropping-active #imageCanvas {
+    cursor: crosshair;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+    .main-layout {
+        grid-template-columns: 1fr; /* 작은 화면에서는 한 줄로 */
+        gap: 0; /* 간격 제거 */
+    }
+
+    .image-display-area {
+        min-height: 400px;
+        border-bottom: 1px solid #444; /* 구분선 추가 */
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    .main-layout {
+        border-radius: 0; /* 모바일에서 전체 화면 사용 */
+        box-shadow: none;
+    }
+    .controls-panel {
+        padding: 15px;
+    }
+    h1 {
+        font-size: 1.8em;
+    }
+    .button {
+        padding: 10px 12px;
+        font-size: 0.9em;
+    }
+    .crop-buttons {
+        flex-direction: column;
+    }
+}
